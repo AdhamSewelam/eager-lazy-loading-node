@@ -6,11 +6,10 @@ name: Node.js Package
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
+    types: [closed]
+    
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     
     steps:
@@ -20,6 +19,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
-          
-      - run: npm install
-      - run: node index.js
+          script: |
+            npm install
+            npm run start | node index.js
